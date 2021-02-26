@@ -3,7 +3,13 @@
     <div id="nav">
       <router-link to="/">Home</router-link>
       |
-      <router-link to="/about">About</router-link>
+      <span>
+        <router-link v-if="!isLoggedIn()" to="/signup">Signup</router-link>
+        |
+        <router-link v-if="!isLoggedIn()" to="/login">Login</router-link>
+        |
+        <router-link v-if="isLoggedIn()" to="/logout">Logout</router-link>
+      </span>
     </div>
     <router-view />
   </div>
@@ -31,3 +37,16 @@
   color: #42b983;
 }
 </style>
+
+<script>
+export default {
+  methods: {
+    isLoggedIn: function() {
+      return localStorage.jwt;
+    },
+    getUserId: function() {
+      return localStorage.user_id;
+    },
+  },
+};
+</script>
