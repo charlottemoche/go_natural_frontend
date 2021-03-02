@@ -4,7 +4,9 @@ import Home from "../views/Home.vue";
 import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
-import UsersShow from "../views/UsersShow.vue";
+import TopicsShow from "../views/TopicsShow.vue";
+import PostsShow from "../views/PostsShow.vue";
+import UsersShow from "../views/UsersShow.vue"
 
 Vue.use(VueRouter);
 
@@ -38,8 +40,18 @@ const routes = [
     component: Logout,
   },
   {
+    path: "/topics/:id",
+    name: "topics-show",
+    component: TopicsShow,
+  },
+  {
+    path: "/posts/:id",
+    name: "posts-show",
+    component: PostsShow,
+  },
+  {
     path: "/users/:id",
-    name: "users",
+    name: "users-show",
     component: UsersShow,
   },
 ];

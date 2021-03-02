@@ -1,8 +1,12 @@
 <template>
   <div class="home">
     <div v-for="topic in topics" v-bind:key="topic.id">
-      <p>{{ topic.title }}</p>
-      <img v-bind:src="topic.image_url" alt="" />
+      <h1>{{ topic.title }}</h1>
+      <router-link :to="`topics/${topic.id}`">
+        <span>
+          <img v-bind:src="topic.image_url" alt="" />
+        </span>
+      </router-link>
     </div>
   </div>
 </template>
