@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <img src="https://i.ibb.co/bzppHzF/gonatural.png" alt="" />
+    <div v-for="topic in topics" v-bind:key="topic.id">
+      <p>{{ topic.title }}</p>
+      <img v-bind:src="topic.image_url" alt="" />
+    </div>
   </div>
 </template>
 
@@ -11,11 +14,25 @@ img {
 </style>
 
 <script>
+import axios from "axios";
+
 export default {
   data: function() {
-    return {};
+    return {
+      topics: [],
+    };
   },
-  created: function() {},
-  methods: {},
+  created: function() {
+    this.indexTopics();
+  },
+
+  methods: {
+    indexTopics: function() {
+      axios.get("/api/topics").then(response => {
+        console.log(response.data);
+        this.topics = response.data;
+      });
+    },
+  },
 };
 </script>
