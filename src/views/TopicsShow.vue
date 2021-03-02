@@ -24,8 +24,11 @@ export default {
   data: function() {
     return {
       topic: {},
-      posts: [],
-      user: {},
+      post: {
+        user: {
+          name: "",
+        },
+      },
     };
   },
   created: function() {
