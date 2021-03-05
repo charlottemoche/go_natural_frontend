@@ -1,10 +1,17 @@
 <template>
   <div class="posts-show">
     <img :src="post.image_url" alt="" />
+    <div v-if="$parent.getUserId() == post.user.id">
+      <router-link :to="`/posts/${post.id}/edit`">
+        <button>Edit</button>
+      </router-link>
+    </div>
     <h1>{{ post.title }}</h1>
     <p>{{ post.subtitle }}</p>
     By:
-    <p>{{ post.user.name }}</p>
+    <router-link :to="`/users/${post.user.id}`">
+      <p>{{ post.user.name }}</p>
+    </router-link>
     <p>{{ relativeDate(post.created_at) }}</p>
     <p>{{ post.body }}</p>
     Comments:
@@ -15,6 +22,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+img {
+  width: 350px;
+}
+</style>
 
 <script>
 import axios from "axios";

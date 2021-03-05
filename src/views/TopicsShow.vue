@@ -16,6 +16,12 @@
   </div>
 </template>
 
+<style scoped>
+img {
+  width: 350px;
+}
+</style>
+
 <script>
 import axios from "axios";
 import moment from "moment";
