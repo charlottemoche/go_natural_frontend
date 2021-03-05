@@ -16,9 +16,12 @@
     <p>{{ post.body }}</p>
     Comments:
     <div v-for="comment in post.comments" v-bind:key="comment.id">
+      <router-link :to="`/users/${comment.user.id}`">
+        {{ comment.user.image_url }}
+        <p>{{ comment.user.name }}</p>
+      </router-link>
       <p>{{ comment.body }}</p>
       <p>{{ relativeTime(comment.created_at) }}</p>
-      <p>{{ comment.user.name }}</p>
     </div>
   </div>
 </template>

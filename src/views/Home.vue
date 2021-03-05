@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <div v-for="topic in topics" v-bind:key="topic.id">
+    Search:
+    <input type="text" v-model="filter" list="titles" />
+    <datalist id="titles">
+      <option v-for="topic in topics" v-bind:key="topic.title">{{ topic.title }}</option>
+    </datalist>
+    <div v-for="topic in orderBy(filterBy(topics, filter), sortAttribute)" v-bind:key="topic.id">
       <h1>{{ topic.title }}</h1>
       <router-link :to="`topics/${topic.id}`">
         <span>
@@ -19,11 +24,15 @@ img {
 
 <script>
 import axios from "axios";
+import Vue2Filters from "vue2-filters";
 
 export default {
+  mixins: [Vue2Filters.mixin],
   data: function() {
     return {
       topics: [],
+      filter: "",
+      sortAttribute: "",
     };
   },
   created: function() {
