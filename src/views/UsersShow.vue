@@ -8,6 +8,8 @@
       <div v-for="post in user.posts" v-bind:key="post.id">
         <img :src="post.image_url" alt="" />
         <h2>{{ post.title }}</h2>
+
+        <p>{{ relativeDate(post.created_at) }}</p>
         <div v-if="$parent.getUserId()">
           <router-link :to="`/posts/${post.id}/edit`">
             <button>Edit</button>
@@ -15,7 +17,6 @@
         </div>
         <p>{{ post.subtitle }}</p>
         <p>{{ post.body }}</p>
-        <p>{{ relativeDate(post.created_at) }}</p>
       </div>
     </div>
   </div>
