@@ -11,6 +11,7 @@
     <p>{{ post.subtitle }}</p>
     By:
     <router-link :to="`/users/${post.user.id}`">
+      {{ post.user.image_url }}
       <p>{{ post.user.name }}</p>
     </router-link>
     <p>{{ relativeDate(post.created_at) }}</p>
