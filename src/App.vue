@@ -12,7 +12,7 @@
         |
         <router-link v-if="isLoggedIn()" to="/posts/new">New</router-link>
         |
-        <router-link v-if="isLoggedIn()" :to="`/users/${getUserId()}`">Profile</router-link>
+        <a :href="`/users/${getUserId()}`" v-if="isLoggedIn()">Profile</a>
         |
       </span>
     </div>

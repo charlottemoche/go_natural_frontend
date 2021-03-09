@@ -6,11 +6,15 @@
     Bio: {{ user.bio }}
     <div>
       <div v-for="post in user.posts" v-bind:key="post.id">
-        <img :src="post.image_url" alt="" />
+        <router-link :to="`/posts/${post.id}`">
+          <span>
+            <img v-bind:src="post.image_url" alt="" />
+          </span>
+        </router-link>
         <h2>{{ post.title }}</h2>
 
         <p>{{ relativeDate(post.created_at) }}</p>
-        <div v-if="$parent.getUserId()">
+        <div v-if="$parent.getUserId() == $route.params.id">
           <router-link :to="`/posts/${post.id}/edit`">
             <button>Edit</button>
           </router-link>

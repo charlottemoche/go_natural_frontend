@@ -1,12 +1,13 @@
 <template>
   <div class="posts-show">
     <img :src="post.image_url" alt="" />
+    <h1>{{ post.title }}</h1>
+
     <div v-if="$parent.getUserId() == post.user.id">
       <router-link :to="`/posts/${post.id}/edit`">
         <button>Edit</button>
       </router-link>
     </div>
-    <h1>{{ post.title }}</h1>
     <p>{{ post.subtitle }}</p>
     By:
     <router-link :to="`/users/${post.user.id}`">
