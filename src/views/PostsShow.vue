@@ -40,7 +40,22 @@
         <p>{{ comment.user.name }}</p>
       </router-link>
       <p>{{ comment.body }}</p>
+
+      <div v-if="commentEditToggle == comment.id">
+        <form v-on:submit.prevent="updateComment(comment)">
+          <div class="form-group">
+            <input type="text" class="form-control" v-model="comment.body" />
+            <input type="submit" class="btn btn-primary" value="Update" />
+          </div>
+        </form>
+      </div>
+
       <small>{{ relativeTime(comment.created_at) }}</small>
+      <br />
+      <div v-if="$parent.getUserId() == comment.user.id">
+        <button v-on:click="destroyComment(comment)">Delete</button>
+        <button v-on:click="commentEditToggle = comment.id">Edit</button>
+      </div>
     </div>
   </div>
 </template>
@@ -71,6 +86,7 @@ export default {
       body: "",
       postId: `${this.$route.params.id}`,
       errors: [],
+      commentEditToggle: null,
     };
   },
   created: function() {
@@ -89,12 +105,30 @@ export default {
       axios
         .post("/api/comments", params)
         .then(response => {
+          this.post.comments.unshift(response.data);
           console.log(response.data);
-          window.location.reload();
         })
         .catch(error => {
           this.errors = error.response.data.errors;
         });
+    },
+    updateComment: function(comment) {
+      var index = this.post.comments.indexOf(comment);
+      var params = {
+        body: comment.body,
+      };
+      axios.patch(`/api/comments/${comment.id}`, params).then(response => {
+        this.post.comments[index] = response.data;
+        this.commentEditToggle = null;
+        console.log(response.data);
+      });
+    },
+    destroyComment: function(comment) {
+      if (confirm("Are you sure?")) {
+        axios.delete(`/api/comments/${comment.id}`).then(response => {
+          console.log(response.data);
+        });
+      }
     },
     relativeDate: function(date) {
       return moment(date).format("MMMM Do, YYYY");
