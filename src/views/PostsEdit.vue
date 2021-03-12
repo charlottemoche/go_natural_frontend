@@ -26,8 +26,9 @@
       </div>
       <label for="topic-id">Topic:</label>
       <select name="topics" v-model="post.topic_id">
-        <option value="1">Replacements</option>
-        <option value="2">Natural Cleaning</option>
+        <option value="1">Item Replacements</option>
+        <option value="2">Natural Cleaning Solutions</option>
+        <option value="3">Food Waste Reduction</option>
       </select>
       <br />
       <input type="submit" class="btn btn-primary" value="Update" />
@@ -81,7 +82,7 @@ export default {
       if (confirm("Are you sure?")) {
         axios.delete(`/api/posts/${this.post.id}`).then(response => {
           console.log(response.data);
-          this.$router.push("/posts");
+          this.$router.push("/");
         });
       }
     },

@@ -11,7 +11,7 @@
       <p>{{ post.subtitle }}</p>
       By:
       <p>{{ post.user.name }}</p>
-      <p>{{ relativeDate(post.created_at) }}</p>
+      <small>{{ relativeDate(post.created_at) }}</small>
     </div>
   </div>
 </template>

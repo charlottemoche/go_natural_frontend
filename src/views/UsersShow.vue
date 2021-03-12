@@ -1,9 +1,8 @@
 <template>
   <div class="users-show">
     {{ user.image_url }}
-    Name: {{ user.name }}
-    <br />
-    Bio: {{ user.bio }}
+    <h2>{{ user.name }}</h2>
+    <p>{{ user.bio }}</p>
     <div>
       <div v-for="post in user.posts" v-bind:key="post.id">
         <router-link :to="`/posts/${post.id}`">
@@ -11,9 +10,9 @@
             <img v-bind:src="post.image_url" alt="" />
           </span>
         </router-link>
-        <h2>{{ post.title }}</h2>
+        <h3>{{ post.title }}</h3>
 
-        <p>{{ relativeDate(post.created_at) }}</p>
+        <small>{{ relativeDate(post.created_at) }}</small>
         <div v-if="$parent.getUserId() == $route.params.id">
           <router-link :to="`/posts/${post.id}/edit`">
             <button>Edit</button>

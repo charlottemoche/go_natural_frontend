@@ -1,7 +1,7 @@
 <template>
   <div class="posts-new">
     <h1>New Post</h1>
-    <p class="red-text" v-if="!$parent.isLoggedIn()">You must log in to add a new post!</p>
+    <small class="red-text" v-if="!$parent.isLoggedIn()">You must log in to add a new post!</small>
     <ul>
       <li class="text-danger" v-for="error in errors" v-bind:key="error">
         {{ error }}
@@ -38,7 +38,7 @@
     </form>
   </div>
 </template>
-<style scoped>
+<style>
 .red-text {
   color: red;
 }
