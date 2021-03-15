@@ -124,8 +124,10 @@ export default {
       });
     },
     destroyComment: function(comment) {
+      var index = this.post.comments.indexOf(comment);
       if (confirm("Are you sure?")) {
         axios.delete(`/api/comments/${comment.id}`).then(response => {
+          this.post.comments.splice(index, 1);
           console.log(response.data);
         });
       }
