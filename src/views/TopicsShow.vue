@@ -9,8 +9,8 @@
       </router-link>
       <h2>{{ post.title }}</h2>
       <p>{{ post.subtitle }}</p>
-      By:
-      <p>{{ post.user.name }}</p>
+      <small>by: {{ post.user.name }}</small>
+      <br />
       <small>{{ relativeDate(post.created_at) }}</small>
     </div>
   </div>

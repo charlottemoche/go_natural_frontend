@@ -9,11 +9,13 @@
       </router-link>
     </div>
     <p>{{ post.subtitle }}</p>
-    By:
-    <router-link :to="`/users/${post.user.id}`">
-      <p>{{ post.user.name }}</p>
-      {{ post.user.image_url }}
-    </router-link>
+    <small>
+      by:
+      <router-link :to="`/users/${post.user.id}`">
+        <p>{{ post.user.name }}</p>
+        {{ post.user.image_url }}
+      </router-link>
+    </small>
     <br />
     <small>{{ relativeDate(post.created_at) }}</small>
     <p>{{ post.body }}</p>
@@ -39,7 +41,6 @@
         {{ comment.user.image_url }}
         <p>{{ comment.user.name }}</p>
       </router-link>
-      <p>{{ comment.body }}</p>
 
       <div v-if="commentEditToggle == comment.id">
         <form v-on:submit.prevent="updateComment(comment)">
@@ -48,6 +49,10 @@
             <input type="submit" class="btn btn-primary" value="Update" />
           </div>
         </form>
+      </div>
+
+      <div v-else>
+        <p>{{ comment.body }}</p>
       </div>
 
       <small>{{ relativeTime(comment.created_at) }}</small>

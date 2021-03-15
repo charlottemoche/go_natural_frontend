@@ -3,6 +3,12 @@
     {{ user.image_url }}
     <h2>{{ user.name }}</h2>
     <p>{{ user.bio }}</p>
+    <div v-if="$parent.getUserId() == user.id">
+      <router-link :to="`/users/${user.id}/edit`">
+        <button>Edit Profile</button>
+      </router-link>
+    </div>
+    <br />
     <div>
       <div v-for="post in user.posts" v-bind:key="post.id">
         <router-link :to="`/posts/${post.id}`">
