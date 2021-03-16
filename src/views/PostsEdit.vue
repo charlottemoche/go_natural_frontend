@@ -46,11 +46,14 @@ img {
 
 <script>
 import axios from "axios";
+
 export default {
   data: function() {
     return {
       post: {},
       errors: [],
+      content: "",
+      options: {},
     };
   },
   created: function() {

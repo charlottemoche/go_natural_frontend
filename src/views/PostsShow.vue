@@ -2,7 +2,6 @@
   <div class="posts-show">
     <img :src="post.image_url" alt="" />
     <h2>{{ post.title }}</h2>
-
     <div v-if="$parent.getUserId() == post.user.id">
       <router-link :to="`/posts/${post.id}/edit`">
         <button>Edit</button>
@@ -13,12 +12,13 @@
       by:
       <router-link :to="`/users/${post.user.id}`">
         <p>{{ post.user.name }}</p>
-        {{ post.user.image_url }}
+        <img :src="post.user.image_url" alt="" class="avatar" />
       </router-link>
     </small>
     <br />
     <small>{{ relativeDate(post.created_at) }}</small>
-    <p>{{ post.body }}</p>
+
+    <span v-html="post.body"></span>
 
     <h3>Add Comment</h3>
     <small class="red-text" v-if="!$parent.isLoggedIn()">Log in or create account to add a comment</small>
@@ -38,7 +38,7 @@
     Comments:
     <div v-for="comment in post.comments" v-bind:key="comment.id">
       <router-link :to="`/users/${comment.user.id}`">
-        {{ comment.user.image_url }}
+        <img :src="comment.user.image_url" alt="" class="avatar" />
         <p>{{ comment.user.name }}</p>
       </router-link>
 
@@ -69,6 +69,11 @@
 img {
   width: 350px;
 }
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
 </style>
 
 <script>
@@ -78,6 +83,7 @@ import moment from "moment";
 export default {
   data: function() {
     return {
+      likes: "",
       post: {
         user: {
           name: "",

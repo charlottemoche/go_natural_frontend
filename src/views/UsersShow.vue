@@ -1,6 +1,6 @@
 <template>
   <div class="users-show">
-    {{ user.image_url }}
+    <img :src="user.image_url" alt="" class="avatar" />
     <h2>{{ user.name }}</h2>
     <p>{{ user.bio }}</p>
     <div v-if="$parent.getUserId() == user.id">
@@ -33,6 +33,11 @@
 <style scoped>
 img {
   width: 150px;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 }
 </style>
 <script>

@@ -17,10 +17,7 @@
       <br />
       <br />
       <label for="body">Body:</label>
-      <input type="text" id="body" name="body" value="" v-model="body" />
-      <br />
-      <small v-bind:class="{ 'red-text': body.length > 100 }">{{ 100 - body.length }} characters left</small>
-      <small v-if="body.length < 0" class="red-text"></small>
+      <froala id="edit" :tag="'textarea'" :config="config" v-model="body"></froala>
       <br />
       <br />
       <label for="image-url">Image Url:</label>
@@ -29,8 +26,9 @@
       <br />
       <label for="topic-id">Choose a topic:</label>
       <select name="topics" v-model="topicId">
-        <option value="1">Replacements</option>
-        <option value="2">Natural Cleaning</option>
+        <option value="1">Replacement Items</option>
+        <option value="2">Natural Cleaning Solutions</option>
+        <option value="3">Food Waste Reduction</option>
       </select>
       <br />
       <br />
@@ -47,6 +45,7 @@
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
+// import VueFroala from "vue-froala-wysiwyg";
 
 export default {
   mixins: [Vue2Filters.mixin],
@@ -58,6 +57,14 @@ export default {
       imageUrl: "",
       topicId: "",
       errors: [],
+      config: {
+        events: {
+          initialized: function() {
+            console.log("initialized");
+          },
+        },
+      },
+      model: "Edit Your Content Here!",
     };
   },
   methods: {
