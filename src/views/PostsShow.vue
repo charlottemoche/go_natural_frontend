@@ -8,6 +8,7 @@
       </router-link>
     </div>
     <p>{{ post.subtitle }}</p>
+
     <small>
       by:
       <router-link :to="`/users/${post.user.id}`">
@@ -17,29 +18,34 @@
     </small>
     <br />
     <small>{{ relativeDate(post.created_at) }}</small>
+    <br />
+
+    <p>{{ post.likes.length }} likes</p>
+    <button v-on:click="toggleLike()">&hearts;</button>
+    <br />
 
     <span v-html="post.body"></span>
-
-    <h3>Add Comment</h3>
-    <small class="red-text" v-if="!$parent.isLoggedIn()">Log in or create account to add a comment</small>
     <ul>
       <li class="text-danger" v-for="error in errors" v-bind:key="error">
         <p>{{ error }}</p>
       </li>
     </ul>
-    <form v-on:submit.prevent="createComment()">
-      <label for="body"></label>
-      <input type="text" id="body" name="body" value="" v-model="body" />
-      <label for="post-id"></label>
-      <input type="hidden" id="post-id" name="post-id" value="" v-model="postId" />
-      <input type="submit" value="Post" />
-    </form>
+
+    <div v-if="$parent.isLoggedIn()">
+      <form v-on:submit.prevent="createComment()">
+        <label for="body"></label>
+        <input type="text" id="body" name="body" value="" v-model="body" />
+        <label for="post-id"></label>
+        <input type="hidden" id="post-id" name="post-id" value="" v-model="postId" />
+        <input type="submit" value="Post" />
+      </form>
+    </div>
     <br />
     Comments:
     <div v-for="comment in post.comments" v-bind:key="comment.id">
       <router-link :to="`/users/${comment.user.id}`">
         <img :src="comment.user.image_url" alt="" class="avatar" />
-        <p>{{ comment.user.name }}</p>
+        <small>{{ comment.user.name }}</small>
       </router-link>
 
       <div v-if="commentEditToggle == comment.id">
@@ -83,8 +89,8 @@ import moment from "moment";
 export default {
   data: function() {
     return {
-      likes: "",
       post: {
+        likes: [],
         user: {
           name: "",
         },
@@ -98,16 +104,47 @@ export default {
       postId: `${this.$route.params.id}`,
       errors: [],
       commentEditToggle: null,
+      liked: false,
     };
   },
   created: function() {
     axios.get(`/api/posts/${this.$route.params.id}`).then(response => {
       this.post = response.data;
+      if (this.post.likes.find(like => like.user_id === this.$parent.getUserId())) {
+        this.liked == false;
+      }
+      console.log(this.liked);
       console.log(this.post);
     });
   },
 
   methods: {
+    toggleLike: function() {
+      if (this.liked) {
+        this.unlikePost();
+      } else {
+        this.likePost();
+      }
+    },
+    likePost: function() {
+      var params = {
+        id: this.post.id,
+      };
+      axios.post(`/api/posts/${this.$route.params.id}/like`, params).then(response => {
+        console.log(response.data);
+        this.post.likes.unshift(response.data);
+      });
+    },
+    unlikePost: function(like) {
+      var index = this.post.likes.indexOf(like);
+      var params = {
+        id: this.post.id,
+      };
+      axios.delete(`/api/posts/${this.$route.params.id}/like`, params).then(response => {
+        this.post.likes.splice(index, 1);
+        console.log(response.data);
+      });
+    },
     createComment: function() {
       var params = {
         body: this.body,

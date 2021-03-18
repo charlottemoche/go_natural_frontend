@@ -45,7 +45,6 @@
 <script>
 import axios from "axios";
 import Vue2Filters from "vue2-filters";
-// import VueFroala from "vue-froala-wysiwyg";
 
 export default {
   mixins: [Vue2Filters.mixin],
@@ -64,7 +63,6 @@ export default {
           },
         },
       },
-      model: "Edit Your Content Here!",
     };
   },
   methods: {

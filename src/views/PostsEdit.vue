@@ -17,9 +17,10 @@
         <input type="text" class="form-control" v-model="post.subtitle" />
       </div>
       <div class="form-group">
-        <label>Body:</label>
-        <input type="text" class="form-control" v-model="post.body" />
+        <label for="body">Body:</label>
+        <froala id="edit" :tag="'textarea'" :config="config" v-model="post.body"></froala>
       </div>
+
       <div class="form-group">
         <label>Image:</label>
         <input type="text" class="form-control" v-model="post.image_url" />
@@ -54,6 +55,13 @@ export default {
       errors: [],
       content: "",
       options: {},
+      config: {
+        events: {
+          initialized: function() {
+            console.log("initialized");
+          },
+        },
+      },
     };
   },
   created: function() {
