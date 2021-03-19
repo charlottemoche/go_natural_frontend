@@ -21,7 +21,10 @@
     <br />
 
     <p>{{ post.likes.length }} likes</p>
-    <button v-on:click="toggleLike()">&hearts;</button>
+    <div v-if="$parent.isLoggedIn()">
+      <button v-on:click="likePost()">&hearts;</button>
+      <button v-on:click="unlikePost()">&hearts;</button>
+    </div>
     <br />
 
     <span v-html="post.body"></span>
@@ -104,28 +107,17 @@ export default {
       postId: `${this.$route.params.id}`,
       errors: [],
       commentEditToggle: null,
-      liked: false,
+      liked: null,
     };
   },
   created: function() {
     axios.get(`/api/posts/${this.$route.params.id}`).then(response => {
       this.post = response.data;
-      if (this.post.likes.find(like => like.user_id === this.$parent.getUserId())) {
-        this.liked == false;
-      }
-      console.log(this.liked);
       console.log(this.post);
     });
   },
 
   methods: {
-    toggleLike: function() {
-      if (this.liked) {
-        this.unlikePost();
-      } else {
-        this.likePost();
-      }
-    },
     likePost: function() {
       var params = {
         id: this.post.id,
