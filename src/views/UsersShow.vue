@@ -25,7 +25,6 @@
           </router-link>
         </div>
         <p>{{ post.subtitle }}</p>
-        <p>{{ post.body }}</p>
       </div>
     </div>
   </div>

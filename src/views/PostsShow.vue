@@ -22,8 +22,7 @@
 
     <p>{{ post.likes.length }} likes</p>
     <div v-if="$parent.isLoggedIn()">
-      <button v-on:click="likePost()">&hearts;</button>
-      <button v-on:click="unlikePost()">&hearts;</button>
+      <button v-bind:class="{ 'red-heart': liked }" v-on:click="isLiked()">&hearts;</button>
     </div>
     <br />
 
@@ -83,6 +82,9 @@ img {
   height: 40px;
   border-radius: 50%;
 }
+.red-heart {
+  color: red;
+}
 </style>
 
 <script>
@@ -107,17 +109,28 @@ export default {
       postId: `${this.$route.params.id}`,
       errors: [],
       commentEditToggle: null,
-      liked: null,
+      liked: false,
     };
   },
   created: function() {
     axios.get(`/api/posts/${this.$route.params.id}`).then(response => {
       this.post = response.data;
+      this.liked = this.post.likes.find(like => like.user_id == this.$parent.getUserId());
+      console.log(this.liked);
       console.log(this.post);
     });
   },
 
   methods: {
+    isLiked: function() {
+      if (this.liked) {
+        this.unlikePost();
+        this.liked = false;
+      } else {
+        this.likePost();
+        this.liked = true;
+      }
+    },
     likePost: function() {
       var params = {
         id: this.post.id,
