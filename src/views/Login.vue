@@ -1,22 +1,130 @@
 <template>
   <div class="login">
-    <form v-on:submit.prevent="submit()">
-      <h1>Login</h1>
-      <ul>
-        <li class="text-danger" v-for="error in errors" v-bind:key="error">
-          {{ error }}
-        </li>
-      </ul>
-      <div class="form-group">
-        <label>Email:</label>
-        <input type="email" class="form-control" v-model="email" />
+    <section class="bg-alt">
+      <div class="container">
+        <h2 class="text-center pb-2"></h2>
+        <div class="row wow slideInUp">
+          <div class="col-lg-6 col-12 pb-3">
+            <div class="card h-100">
+              <div class="card-img-top"></div>
+              <div class="card-body">
+                <h1>Login</h1>
+                <form role="form" v-on:submit.prevent="loginSubmit()">
+                  <div class="form-group">
+                    <label for="inputEmailForm" class="sr-only form-control-label">Email</label>
+                    <div class="mx-auto col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="inputEmailForm"
+                        placeholder="email"
+                        required
+                        v-model="loginEmail"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPasswordForm" class="sr-only form-control-label">Password</label>
+                    <div class="mx-auto col-sm-10">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="inputPasswordForm"
+                        placeholder="password"
+                        required
+                        v-model="loginPassword"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="mx-auto col-sm-10">
+                      <div class="checkbox form-control form-control-sm text-center small">
+                        <label class="">
+                          <input type="checkbox" class="" />
+                          remember me
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="mx-auto col-sm-10 pb-3 pt-2">
+                      <button type="submit" class="btn btn-outline-secondary btn-lg btn-block" value="Submit">
+                        Sign-in
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-12 pb-3">
+            <div class="card h-100">
+              <div class="card-img-top"></div>
+              <div class="card-body">
+                <h1>Sign-up</h1>
+                <form role="form" v-on:submit.prevent="signupSubmit()">
+                  <div class="form-group">
+                    <label for="name" class="sr-only form-control-label">name</label>
+                    <div class="mx-auto col-sm-10">
+                      <input type="text" class="form-control" placeholder="name" required v-model="name" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input2EmailForm" class="sr-only form-control-label">email</label>
+                    <div class="mx-auto col-sm-10">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="input2EmailForm"
+                        placeholder="email"
+                        required
+                        v-model="signupEmail"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input2PasswordForm" class="sr-only form-control-label">
+                      password
+                    </label>
+                    <div class="mx-auto col-sm-10">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="input2PasswordForm"
+                        placeholder="password"
+                        required
+                        v-model="signupPassword"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="input2Password2Form" class="sr-only form-control-label">verify</label>
+                    <div class="mx-auto col-sm-10">
+                      <input
+                        type="password"
+                        class="form-control"
+                        id="input2Password2Form"
+                        placeholder="verify password"
+                        required
+                        v-model="passwordConfirmation"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="mx-auto col-sm-10 pb-3 pt-2">
+                      <button type="submit" class="btn btn-outline-secondary btn-lg btn-block">
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
       </div>
-      <div class="form-group">
-        <label>Password:</label>
-        <input type="password" class="form-control" v-model="password" />
-      </div>
-      <input type="submit" class="btn btn-primary" value="Submit" />
-    </form>
+    </section>
   </div>
 </template>
 
@@ -26,16 +134,20 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      email: "",
-      password: "",
+      name: "",
+      loginEmail: "",
+      signupEmail: "",
+      loginPassword: "",
+      signupPassword: "",
+      passwordConfirmation: "",
       errors: [],
     };
   },
   methods: {
-    submit: function() {
+    loginSubmit: function() {
       var params = {
-        email: this.email,
-        password: this.password,
+        email: this.loginEmail,
+        password: this.loginPassword,
       };
       axios
         .post("/api/sessions", params)
@@ -50,6 +162,22 @@ export default {
           this.errors = ["Invalid email or password."];
           this.email = "";
           this.password = "";
+        });
+    },
+    signupSubmit: function() {
+      var params = {
+        name: this.name,
+        email: this.signupEmail,
+        password: this.signupPassword,
+        password_confirmation: this.passwordConfirmation,
+      };
+      axios
+        .post("/api/users", params)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
         });
     },
   },

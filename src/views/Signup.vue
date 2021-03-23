@@ -42,7 +42,7 @@ export default {
     };
   },
   methods: {
-    submit: function() {
+    signupSubmit: function() {
       var params = {
         name: this.name,
         email: this.email,

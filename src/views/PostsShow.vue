@@ -1,5 +1,151 @@
 <template>
   <div class="posts-show">
+    <div class="container outer pb-3 mt-3" id="blog-post">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-5 py-2">
+          <h1 class="display-1 hidden-down pt-2 post-title">
+            <a href="" class="link">
+              {{ post.title }}
+            </a>
+          </h1>
+          <p class="post-subtitle"></p>
+        </div>
+        <div class="col-xl-4 ml-xl-auto col-lg-4 ml-lg-auto col-md-5 ml-md-auto py-2">
+          <blockquote class="blockquote">
+            <h3 class="text-right pt-2"><a href="/">Topics</a></h3>
+          </blockquote>
+        </div>
+        <div class="col-sm-12">
+          <div class="card card-default py-2">
+            <p class="lead m-0">{{ post.subtitle }}</p>
+          </div>
+          <h6 class="text-wide pt-2">
+            <a class="float-right post-category">{{ post.likes.length }} likes</a>
+            <div a class="float-right">
+              <div v-if="$parent.isLoggedIn()">
+                <button
+                  v-bind:class="{ 'red-heart': liked }"
+                  class="btn btn-outline-secondary btn-sm"
+                  v-on:click="isLiked()"
+                >
+                  &hearts;
+                </button>
+              </div>
+            </div>
+            <span class="text-dark post-author">
+              <router-link :to="`/users/${post.user.id}`">
+                <p>{{ post.user.name }}</p>
+              </router-link>
+            </span>
+          </h6>
+
+          <small>{{ relativeDate(post.created_at) }}</small>
+        </div>
+      </div>
+      <div class="row pt-2">
+        <div class="col-md-12">
+          <img :src="post.image_url" class="post-img img-fluid" alt="post photo" />
+        </div>
+        <div class="col-md-12"></div>
+        <div class="col-md-12 pt-3 post-content">
+          <span v-html="post.body"></span>
+
+          <hr />
+
+          <hr />
+        </div>
+        <div class="col-md-5">
+          <!--spacer-->
+          <div class="bg-alt p-3">
+            <div class="row">
+              <div class="col-md-3">
+                <img :src="post.user.image_url" class="profile" alt="" />
+              </div>
+            </div>
+            <h6 class="text-wide text-uppercase pt-2">
+              <span class="text-dark">{{ post.user.name }}</span>
+            </h6>
+            <p class="text-secondary">
+              {{ post.user.bio }}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-7"></div>
+      </div>
+      <div class="row pt-2">
+        <div class="col-md-6 pt-2 pb-2">
+          <!-- social media sharing links -->
+        </div>
+        <div class="col-md-6 pt-2 pb-2">
+          <a href="/blog-detail.1.html" class="btn btn-outline-secondary btn-lg float-right">Next Post</a>
+        </div>
+        <!-- <div v-for="comment in post.comments" v-bind:key="comment.id"> -->
+        <div class="col-lg-8 col-md-9 pt-2">
+          <div class="comments row" id="comments">
+            <div class="col-12 mb-4">
+              <h3 class="mb-4">Comments</h3>
+              <!-- comment -->
+              <div class="comment mb-3 row" v-for="comment in post.comments" v-bind:key="comment.id">
+                <div class="comment-avatar col-lg-1 ml-lg-auto col-md-2 ml-md-0 col-4 ml-auto text-center">
+                  <a href="">
+                    <img class="mx-auto rounded-circle img-fluid" :src="comment.user.image_url" alt="avatar" />
+                  </a>
+                </div>
+                <div class="comment-content col-lg-11 col-md-10 col-12">
+                  <h6 class="small comment-meta">
+                    <a href="#">{{ comment.user.name }}</a>
+                    |
+                    {{ relativeTime(comment.created_at) }}
+                  </h6>
+                  <div class="comment-body">
+                    <p>{{ comment.body }}</p>
+                  </div>
+                </div>
+              </div>
+              <!-- /comment -->
+              <div class="row pt-2">
+                <div class="col-12">
+                  <a href="" class="btn btn-sm btn-primary">Comment</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-3 pt-2">
+          <div class="row">
+            <!--related post-->
+            <div class="col-md-12 col-sm-6">
+              <div class="card card-default mb-2">
+                <div class="card-img-top card-img-top-200">
+                  <a href="/blog-detail.html">
+                    <img src="/assets/images/mercantile_500_0007.png" class="mx-auto img-fluid" alt="image" />
+                  </a>
+                </div>
+                <div class="card-body p-2">
+                  <a href="/blog-detail.1.html" class="btn btn-outline-secondary float-right">Read</a>
+                  <span class="lead post-title">Guidance</span>
+                </div>
+              </div>
+            </div>
+            <!--related post-->
+            <div class="col-md-12 col-sm-6">
+              <div class="card card-default mb-2">
+                <div class="card-img-top card-img-top-200">
+                  <a href="/blog-detail.html">
+                    <img src="/assets/images/mercantile_500_0004.png" class="mx-auto img-fluid" alt="image" />
+                  </a>
+                </div>
+                <div class="card-body p-2">
+                  <a href="/blog-detail.1.html" class="btn btn-outline-secondary float-right">Read</a>
+                  <span class="lead post-title">Collaboration</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <img :src="post.image_url" alt="" />
     <h2>{{ post.title }}</h2>
     <div v-if="$parent.getUserId() == post.user.id">
@@ -82,6 +228,9 @@ img {
   height: 40px;
   border-radius: 50%;
 }
+.profile {
+  width: 200px;
+}
 .red-heart {
   color: red;
 }
@@ -98,6 +247,7 @@ export default {
         likes: [],
         user: {
           name: "",
+          bio: "",
         },
       },
       comments: {
