@@ -147,10 +147,12 @@ img {
 .jumbotron {
   padding-top: 20px;
   padding-left: 40px;
+  background: #ffffff;
 }
 .card-horizontal {
   display: flex;
   flex: 1 1 auto;
+  width: 800px;
 }
 </style>
 <script>

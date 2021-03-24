@@ -91,62 +91,10 @@
               <li><a href="./legal.html">Terms &amp; Conditions</a></li>
             </ul>
           </div>
-          <div class="col-12 col-md-3 column">
-            <h6 class="text-uppercase">Stay Posted</h6>
-            <form>
-              <div class="form-group">
-                <input type="text" class="form-control" title="Enter your email. No spam, we promise!" placeholder="" />
-              </div>
-              <div class="form-group">
-                <button
-                  class="btn btn-primary text-uppercase small"
-                  data-toggle="modal"
-                  data-target="#alertModal"
-                  type="button"
-                >
-                  Subscribe
-                </button>
-              </div>
-            </form>
-          </div>
-          <div class="col-12 col-lg-2 ml-lg-auto col-md-3 ml-md-0 text-right">
-            <h6 class="text-uppercase">Jobs</h6>
-            <p>
-              <em><a href="">We&apos;re looking for great talent. Browse the job openings.</a></em>
-            </p>
-          </div>
-          <div class="col-12 text-md-right text-center">
-            <br />
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a rel="nofollow" href="//twitter.com/ThemesGuide" title="Twitter">
-                  <i class="ion-social-twitter-outline"></i>
-                </a>
-                &#xA0;
-              </li>
-              <li class="list-inline-item">
-                <a rel="nofollow" href="" title=""><i class="ion-social-instagram-outline"></i></a>
-                &#xA0;
-              </li>
-              <li class="list-inline-item">
-                <a rel="nofollow" href="" title="Facebook"><i class="ion-social-facebook-outline"></i></a>
-                &#xA0;
-              </li>
-              <li class="list-inline-item">
-                <a rel="nofollow" href="" title="Dribbble"><i class="ion-social-dribbble-outline"></i></a>
-              </li>
-            </ul>
-          </div>
         </div>
         <br />
         <br />
         <hr class="light" />
-        <div class="text-center text-normal">
-          <a href="http://themes.guide">
-            Made by Themes.guide in Little Rhody
-            <i class="ion-location"></i>
-          </a>
-        </div>
       </div>
     </footer>
   </div>

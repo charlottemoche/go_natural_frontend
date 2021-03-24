@@ -2,6 +2,7 @@
   <div class="topics-show">
     <div class="carousel slide w-100 mb-5" data-ride="carousel" data-interval="10000" id="postsCarousel">
       <div class="container mt-2 px-0">
+        <br />
         <h1>{{ topic.title }}</h1>
         <hr />
         <div class="carousel-inner pb-2">
@@ -35,22 +36,7 @@
           </div>
         </div>
       </div>
-      <!--/multi cards carousel slider-->
     </div>
-
-    <!-- <h1>{{ topic.title }}</h1> -->
-    <!-- <div v-for="post in topic.posts" v-bind:key="post.id">
-      <router-link :to="`/posts/${post.id}`">
-        <span>
-          <img v-bind:src="post.image_url" alt="" />
-        </span>
-      </router-link>
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.subtitle }}</p>
-      <small>by: {{ post.user.name }}</small>
-      <br />
-      <small>{{ relativeDate(post.created_at) }}</small>
-    </div> -->
   </div>
 </template>
 
