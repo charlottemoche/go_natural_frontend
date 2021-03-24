@@ -49,9 +49,10 @@
                   name="topics"
                   v-model="post.topic_id"
                 >
-                  <option value="1">Replacement Items</option>
+                  <option value="1">Product Alternatives</option>
                   <option value="2">Natural Cleaning</option>
                   <option value="3">Food Waste Reduction</option>
+                  <option value="4">Water Conservation</option>
                 </select>
               </div>
             </div>
@@ -59,6 +60,7 @@
               <label class="col-lg-3 col-form-label form-control-label"></label>
               <div class="col-lg-9">
                 <input type="submit" class="btn btn-primary" value="Update" />
+                &nbsp;
                 <button v-on:click="destroyPost()" class="btn btn-danger">Delete</button>
               </div>
             </div>

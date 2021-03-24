@@ -1,46 +1,36 @@
 <template>
   <div class="posts-show">
-    <div class="container outer pb-3 mt-3" id="blog-post">
+    <div class="container pb-3">
       <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-5 py-2">
+          <hr />
+          <h1>
+            {{ post.title }}
+          </h1>
+          <p class="post-subtitle"></p>
+        </div>
         <div class="col-xl-4 ml-xl-auto col-lg-4 ml-lg-auto col-md-5 ml-md-auto py-2">
           <blockquote class="blockquote">
-            <h4 class="text-right pt-2">
+            <h3 class="text-right pt-2">
               <router-link :to="`/topics/${post.topic.id}`">{{ post.topic.title }}</router-link>
-            </h4>
+            </h3>
           </blockquote>
         </div>
-        <h2 class="display-1 hidden-down pt-1 post-title">
-          {{ post.title }}
-        </h2>
-        <h5>
-          {{ post.subtitle }}
-        </h5>
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-        <hr />
-
-        <div v-if="$parent.getUserId() == post.user.id">
-          <router-link :to="`/posts/${post.id}/edit`">
-            <button class="btn btn-sm btn-primary">
-              <i class="ion-edit"></i>
-            </button>
-          </router-link>
+        <div class="col-sm-12">
+          <div class="card card-default py-2">
+            <p class="font-italic lead m-0">{{ post.subtitle }}</p>
+          </div>
+          <br />
+          <div v-if="$parent.getUserId() == post.user.id">
+            <router-link :to="`/posts/${post.id}/edit`">
+              <button class="btn btn-sm btn-secondary">
+                <i class="ion-edit"></i>
+              </button>
+            </router-link>
+          </div>
         </div>
-        <hr />
-        <!-- </div> -->
       </div>
+      <br />
       <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <div class="col-sm-12">
@@ -132,7 +122,9 @@
                       <form v-on:submit.prevent="updateComment(comment)">
                         <div class="form-group">
                           <input type="text" class="form-control" v-model="comment.body" />
+                          <br />
                           <input type="submit" class="btn btn-sm btn-secondary" value="Update" />
+                          &nbsp;
                           <button v-on:click="destroyComment(comment)" class="btn btn-sm btn-danger">Delete</button>
                         </div>
                       </form>

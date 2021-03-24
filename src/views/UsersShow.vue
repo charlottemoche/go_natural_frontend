@@ -10,32 +10,33 @@
             <li class="nav-item">
               <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
             </li>
-            <div v-if="$parent.getUserId() == user.id">
-              <li class="nav-item" data-target="#editImage" data-toggle="collapse">
-                <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
-              </li>
-            </div>
+            <!-- <div v-if="$parent.getUserId() == user.id"> -->
+            <li class="nav-item" v-if="$parent.getUserId() == user.id">
+              <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+            </li>
+            <!-- </div> -->
           </ul>
           <div class="tab-content py-3">
             <div class="tab-pane py-2 active" id="profile">
               <h4 class="mt-3">Recent Activity</h4>
               <div class="jumbotron">
-                <div class="row my-2">
-                  <div class="col-md-6"></div>
-                  <div class="card" v-for="post in user.posts" v-bind:key="post.id">
-                    <div class="card-horizontal">
-                      <div class="card-zoom">
+                <div
+                  class="card card-default border-light mb-3 pb-3 wow fadeIn"
+                  v-for="post in user.posts"
+                  v-bind:key="post.id"
+                >
+                  <div class="row no-gutters">
+                    <div class="col-auto">
+                      <span>
                         <router-link :to="`/posts/${post.id}`">
-                          <span>
-                            <img v-bind:src="post.image_url" alt="" />
-                          </span>
+                          <img v-bind:src="post.image_url" class="img-fluid card-image" alt="" />
                         </router-link>
-                      </div>
-                      <div class="card-body">
+                      </span>
+                    </div>
+                    <div class="col">
+                      <div class="card-block px-2">
                         <h6 class="card-title">{{ post.title }}</h6>
-                        <p class="card-text">
-                          {{ post.subtitle }}
-                        </p>
+                        <p class="card-text">{{ post.subtitle }}</p>
                         <div v-if="$parent.getUserId() == $route.params.id">
                           <router-link :to="`/posts/${post.id}/edit`">
                             <button class="btn btn-sm btn-primary">
@@ -43,10 +44,9 @@
                             </button>
                           </router-link>
                         </div>
+                        <br />
+                        <small class="text-muted">Post Created {{ relativeDate(post.created_at) }}</small>
                       </div>
-                    </div>
-                    <div class="card-footer">
-                      <small class="text-muted">Post Created {{ relativeDate(post.created_at) }}</small>
                     </div>
                   </div>
                 </div>
@@ -107,34 +107,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <img :src="user.image_url" alt="" class="avatar" />
-    <h2>{{ user.name }}</h2>
-    <p>{{ user.bio }}</p>
-    <div v-if="$parent.getUserId() == user.id">
-      <router-link :to="`/users/${user.id}/edit`">
-        <button>Edit Profile</button>
-      </router-link>
-    </div>
-    <br />
-    <div> -->
-    <!-- <div v-for="post in user.posts" v-bind:key="post.id">
-        <router-link :to="`/posts/${post.id}`">
-          <span>
-            <img v-bind:src="post.image_url" alt="" />
-          </span>
-        </router-link>
-        <h3>{{ post.title }}</h3>
-
-        <small>{{ relativeDate(post.created_at) }}</small>
-        <div v-if="$parent.getUserId() == $route.params.id">
-          <router-link :to="`/posts/${post.id}/edit`">
-            <button>Edit</button>
-          </router-link>
-        </div>
-        <p>{{ post.subtitle }}</p> -->
-    <!-- </div> -->
-    <!-- </div> -->
   </div>
 </template>
 <style scoped>
@@ -147,7 +119,7 @@ img {
   border-radius: 50%;
 }
 .jumbotron {
-  padding-top: 20px;
+  padding-top: 40px;
   padding-left: 40px;
   background: #ffffff;
 }

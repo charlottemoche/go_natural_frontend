@@ -42,9 +42,10 @@
                   name="topics"
                   v-model="topicId"
                 >
-                  <option value="1">Replacement Items</option>
+                  <option value="1">Product Alternatives</option>
                   <option value="2">Natural Cleaning</option>
                   <option value="3">Food Waste Reduction</option>
+                  <option value="4">Water Conservation</option>
                 </select>
               </div>
             </div>
@@ -58,40 +59,6 @@
         </div>
       </div>
     </div>
-    <!-- <h1>New Post</h1>
-    <small class="red-text" v-if="!$parent.isLoggedIn()">You must log in to add a new post!</small>
-    <ul>
-      <li class="text-danger" v-for="error in errors" v-bind:key="error">
-        {{ error }}
-      </li>
-    </ul>
-    <form v-on:submit.prevent="createPost()">
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" value="" v-model="title" />
-      <br />
-      <br />
-      <label for="subtitle">Subtitle:</label>
-      <input type="text" id="subtitle" name="subtitle" value="" v-model="subtitle" />
-      <br />
-      <br />
-      <label for="body">Body:</label>
-      <froala id="edit" :tag="'textarea'" :config="config" v-model="body"></froala>
-      <br />
-      <br />
-      <label for="image-url">Image Url:</label>
-      <input type="text" id="image-url" name="image-url" value="" v-model="imageUrl" />
-      <br />
-      <br />
-      <label for="topic-id">Choose a topic:</label>
-      <select name="topics" v-model="topicId">
-        <option value="1">Replacement Items</option>
-        <option value="2">Natural Cleaning</option>
-        <option value="3">Food Waste Reduction</option>
-      </select>
-      <br />
-      <br />
-      <input type="submit" value="Submit" />
-    </form> -->
   </div>
 </template>
 <style scoped>
