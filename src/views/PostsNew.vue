@@ -94,12 +94,13 @@
     </form> -->
   </div>
 </template>
-<style>
+<style scoped>
 .red-text {
   color: red;
 }
 .jumbotron {
-  padding: 100px;
+  padding-left: 220px;
+  padding-right: 220px;
 }
 </style>
 

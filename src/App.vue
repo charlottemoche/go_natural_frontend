@@ -29,9 +29,12 @@
       <div class="collapse navbar-collapse border-0" id="collapsingNavbar">
         <ul class="nav navbar-nav">
           <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link page-scroll" href="/">Blog</a>
+            </li>
             <li class="nav-item dropdown dropdown-hover megamenu">
               <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                Welcome
+                User
                 <span class="caret"></span>
               </a>
               <div class="dropdown-menu dropdown-menu-right pt-1 pb-2">

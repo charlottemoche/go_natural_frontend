@@ -10,9 +10,11 @@
             <li class="nav-item">
               <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
             </li>
-            <li class="nav-item" data-target="#editImage" data-toggle="collapse">
-              <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
-            </li>
+            <div v-if="$parent.getUserId() == user.id">
+              <li class="nav-item" data-target="#editImage" data-toggle="collapse">
+                <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Edit</a>
+              </li>
+            </div>
           </ul>
           <div class="tab-content py-3">
             <div class="tab-pane py-2 active" id="profile">
@@ -175,6 +177,28 @@ export default {
   methods: {
     relativeDate: function(date) {
       return moment(date).format("MMM D");
+    },
+    setFile: function(event) {
+      if (event.target.files.length > 0) {
+        this.imageFile = event.target.files[0];
+      }
+    },
+    updateUser: function() {
+      var formData = new FormData();
+      formData.append("name", this.user.name);
+      formData.append("bio", this.user.bio);
+      if (this.imageFile) {
+        formData.append("image_file", this.imageFile);
+      }
+      axios
+        .patch(`/api/users/${this.user.id}`, formData)
+        .then(response => {
+          console.log(response.data);
+          window.location.reload(`/users/${this.user.id}`);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
     },
   },
 };

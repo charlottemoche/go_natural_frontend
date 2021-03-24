@@ -16,6 +16,29 @@
           {{ post.subtitle }}
         </h5>
         <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+        <hr />
+
+        <div v-if="$parent.getUserId() == post.user.id">
+          <router-link :to="`/posts/${post.id}/edit`">
+            <button class="btn btn-sm btn-primary">
+              <i class="ion-edit"></i>
+            </button>
+          </router-link>
+        </div>
+        <hr />
         <!-- </div> -->
       </div>
       <div class="jumbotron jumbotron-fluid">
