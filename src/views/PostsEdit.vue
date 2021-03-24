@@ -28,7 +28,7 @@
       <label for="topic-id">Topic:</label>
       <select name="topics" v-model="post.topic_id">
         <option value="1">Item Replacements</option>
-        <option value="2">Natural Cleaning Solutions</option>
+        <option value="2">Natural Cleaning</option>
         <option value="3">Food Waste Reduction</option>
       </select>
       <br />

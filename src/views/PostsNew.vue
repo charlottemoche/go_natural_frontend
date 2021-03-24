@@ -1,6 +1,64 @@
 <template>
   <div class="posts-new">
-    <h1>New Post</h1>
+    <div class="jumbotron">
+      <div class="card border-secondary">
+        <div class="card-header">
+          <h3 class="mb-0 my-2">New Post</h3>
+        </div>
+        <div class="card-body">
+          <form class="form" role="form" autocomplete="off" v-on:submit.prevent="createPost()">
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Title:</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="" id="title" name="title" v-model="title" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Subtitle:</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="" id="subtitle" name="title" v-model="subtitle" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Body:</label>
+              <div class="col-lg-9">
+                <div id="froala-editor">
+                  <froala id="edit" :tag="'textarea'" :config="config" v-model="body"></froala>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Add an Image Url:</label>
+              <div class="col-lg-9">
+                <input class="form-control" type="text" value="" id="image-url" name="image-url" v-model="imageUrl" />
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label">Choose a Topic:</label>
+              <div class="col-lg-9">
+                <select
+                  class="form-select form-select-lg mb-3"
+                  aria-label="Default select example"
+                  name="topics"
+                  v-model="topicId"
+                >
+                  <option value="1">Replacement Items</option>
+                  <option value="2">Natural Cleaning</option>
+                  <option value="3">Food Waste Reduction</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-lg-3 col-form-label form-control-label"></label>
+              <div class="col-lg-9">
+                <input type="submit" class="btn btn-primary" value="Post" />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- <h1>New Post</h1>
     <small class="red-text" v-if="!$parent.isLoggedIn()">You must log in to add a new post!</small>
     <ul>
       <li class="text-danger" v-for="error in errors" v-bind:key="error">
@@ -27,18 +85,21 @@
       <label for="topic-id">Choose a topic:</label>
       <select name="topics" v-model="topicId">
         <option value="1">Replacement Items</option>
-        <option value="2">Natural Cleaning Solutions</option>
+        <option value="2">Natural Cleaning</option>
         <option value="3">Food Waste Reduction</option>
       </select>
       <br />
       <br />
       <input type="submit" value="Submit" />
-    </form>
+    </form> -->
   </div>
 </template>
 <style>
 .red-text {
   color: red;
+}
+.jumbotron {
+  padding: 100px;
 }
 </style>
 
