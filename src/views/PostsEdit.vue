@@ -83,7 +83,7 @@ img {
 
 <script>
 import axios from "axios";
-// import swal from "sweetalert";
+import swal from "sweetalert";
 
 export default {
   data: function() {
@@ -127,12 +127,25 @@ export default {
         });
     },
     destroyPost: function() {
-      if (confirm("Are you sure?")) {
-        axios.delete(`/api/posts/${this.post.id}`).then(response => {
-          console.log(response.data);
-          this.$router.push("/");
-        });
-      }
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this post",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(willDelete => {
+        if (willDelete) {
+          swal("Your post has been deleted", {
+            icon: "success",
+          });
+          axios.delete(`/api/posts/${this.post.id}`).then(response => {
+            console.log(response.data);
+            this.$router.push("/");
+          });
+        } else {
+          swal("Your post has been saved");
+        }
+      });
     },
   },
 };

@@ -45,6 +45,7 @@
                           </router-link>
                         </div>
                         <br />
+                        <br />
                         <small class="text-muted">Post Created {{ relativeDate(post.created_at) }}</small>
                       </div>
                     </div>

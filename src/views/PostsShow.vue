@@ -30,39 +30,43 @@
           </div>
         </div>
       </div>
-      <br />
       <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-          <div class="col-sm-12">
-            <h6 class="text-wide pt-2">
-              <span>
-                <router-link :to="`/users/${post.user.id}`">
-                  <a class="float-left">{{ post.user.name }}</a>
-                </router-link>
-              </span>
-              <a class="float-right post-category">{{ post.likes.length }} likes</a>
-              <br />
-              <small class="float-left">{{ relativeDate(post.created_at) }}</small>
-              <div v-if="$parent.isLoggedIn()">
-                <div class="float-right">
-                  <button v-bind:class="{ 'red-heart': liked }" class="btn btn" v-on:click="isLiked()">
-                    &hearts;
-                  </button>
-                </div>
+        <div class="col-sm-12">
+          <h6 class="text-wide pt-2">
+            <img :src="post.user.image_url" class="avatar float-left" />
+            <span>
+              <router-link :to="`/users/${post.user.id}`">
+                <a class="float-left">{{ post.user.name }}</a>
+              </router-link>
+            </span>
+            <a class="float-right post-category">{{ post.likes.length }} likes</a>
+            <br />
+            <small class="float-left">{{ relativeDate(post.created_at) }}</small>
+            <div v-if="$parent.isLoggedIn()">
+              <div class="float-right">
+                <button v-bind:class="{ 'red-heart': liked }" class="btn btn" v-on:click="isLiked()">
+                  &hearts;
+                </button>
               </div>
-            </h6>
+            </div>
+          </h6>
 
-            <hr />
+          <br />
+
+          <br />
+          <div class="container-image">
+            <img :src="post.image_url" class="post-image img-fluid" alt="post photo" />
           </div>
-          <hr />
-          <img :src="post.image_url" class="post-image img-fluid" alt="post photo" />
-          <hr />
-          <span v-html="post.body"></span>
-        </div>
-        <hr />
 
-        <hr />
+          <hr />
+          <div class="container-body"><span v-html="post.body"></span></div>
+        </div>
+        <br />
+
+        <br />
+
         <div class="col-md-5">
+          <h3 class="text-left">About the Author:</h3>
           <!--spacer-->
           <div class="bg-alt p-3">
             <div class="row">
@@ -87,7 +91,7 @@
       <div v-if="$parent.isLoggedIn()">
         <form v-on:submit.prevent="createComment()">
           <label for="body"></label>
-          <input type="text" id="body" name="body" value="" v-model="body" />
+          <input class="comment-input" type="text" id="body" name="body" value="" v-model="body" />
           <label for="post-id"></label>
           <input type="hidden" id="post-id" name="post-id" value="" v-model="postId" />
           <input type="submit" value="Post" />
@@ -102,7 +106,7 @@
           <hr />
           <!-- comment -->
           <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+            <div class="container-comments">
               <div class="comment mb-3 row" v-for="comment in post.comments" v-bind:key="comment.id">
                 <div class="comment-avatar col-lg-1 ml-lg-auto col-md-2 ml-md-0 col-4 ml-auto text-center">
                   <a :href="`/users/${comment.user.id}`">
@@ -156,6 +160,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  margin-right: 10px;
 }
 .profile {
   width: 200px;
@@ -164,17 +169,39 @@
   color: red;
 }
 .jumbotron-fluid {
-  padding-top: 60px;
-  padding-left: 60px;
-  padding-right: 60px;
-  padding-bottom: 35px;
   background: #ffffff;
+  padding-top: 20px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.container {
+  padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+.container-image {
+  text-align: center;
+}
+.container-comments {
+  padding-top: 20px;
+  padding-bottom: 0px;
+}
+.container-body {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+.profile {
+  width: 150px;
+}
+.comment-input {
+  width: 400px;
 }
 </style>
 
 <script>
 import axios from "axios";
 import moment from "moment";
+import swal from "sweetalert";
 
 export default {
   data: function() {
@@ -267,12 +294,31 @@ export default {
     },
     destroyComment: function(comment) {
       var index = this.post.comments.indexOf(comment);
-      if (confirm("Are you sure?")) {
-        axios.delete(`/api/comments/${comment.id}`).then(response => {
-          this.post.comments.splice(index, 1);
-          console.log(response.data);
-        });
-      }
+      swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(willDelete => {
+        if (willDelete) {
+          swal("Your comment has been deleted", {
+            icon: "success",
+          });
+          axios.delete(`/api/comments/${comment.id}`).then(response => {
+            this.post.comments.splice(index, 1);
+            console.log(response.data);
+          });
+        } else {
+          swal("Your post has been saved");
+        }
+      });
+      // var index = this.post.comments.indexOf(comment);
+      // if (confirm("Are you sure?")) {
+      //   axios.delete(`/api/comments/${comment.id}`).then(response => {
+      //     this.post.comments.splice(index, 1);
+      //     console.log(response.data);
+      //   });
+      // }
     },
     relativeDate: function(date) {
       return moment(date).format("MMMM Do, YYYY");
