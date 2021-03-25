@@ -9753,8 +9753,8 @@ h6 {
 }
 
 hr {
-  max-width: 150px;
-  border-width: 5px;
+  max-width: 650px;
+  border-width: 3px;
   opacity: 0.08;
   margin-top: 15px;
   margin-bottom: 25px;
@@ -10417,7 +10417,7 @@ textarea {
   }
   .megamenu > .dropdown-menu {
     min-width: 200px;
-    top: 30px;
+    top: 50px;
     border-color: transparent;
     box-shadow: 0 14px 32px 4px rgba(0, 0, 0, 0.1);
     pointer-events: visible;

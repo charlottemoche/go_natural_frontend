@@ -42,6 +42,7 @@
               </span>
               <a class="float-right post-category">{{ post.likes.length }} likes</a>
               <br />
+              <small class="float-left">{{ relativeDate(post.created_at) }}</small>
               <div v-if="$parent.isLoggedIn()">
                 <div class="float-right">
                   <button v-bind:class="{ 'red-heart': liked }" class="btn btn" v-on:click="isLiked()">
@@ -50,14 +51,12 @@
                 </div>
               </div>
             </h6>
-            <span class="text-dark post-author">
-              <router-link :to="`/users/${post.user.id}`"></router-link>
-            </span>
 
-            <small>{{ relativeDate(post.created_at) }}</small>
             <hr />
           </div>
-          <img :src="post.image_url" class="post-img img-fluid" alt="post photo" />
+          <hr />
+          <img :src="post.image_url" class="post-image img-fluid" alt="post photo" />
+          <hr />
           <span v-html="post.body"></span>
         </div>
         <hr />
@@ -150,9 +149,9 @@
 </template>
 
 <style scoped>
-/* img {
-  width: 350px;
-} */
+.post-image {
+  width: 600px;
+}
 .avatar {
   width: 40px;
   height: 40px;
@@ -165,9 +164,9 @@
   color: red;
 }
 .jumbotron-fluid {
-  padding-top: 40px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-top: 60px;
+  padding-left: 60px;
+  padding-right: 60px;
   padding-bottom: 35px;
   background: #ffffff;
 }
@@ -284,73 +283,3 @@ export default {
   },
 };
 </script>
-
-<!-- 
-    <img :src="post.image_url" alt="" />
-    <h2>{{ post.title }}</h2>
-    <div v-if="$parent.getUserId() == post.user.id">
-      <router-link :to="`/posts/${post.id}/edit`">
-        <button>Edit</button>
-      </router-link>
-    </div>
-    <p>{{ post.subtitle }}</p>
-
-    <small>
-      by:
-      <router-link :to="`/users/${post.user.id}`">
-        <p>{{ post.user.name }}</p>
-        <img :src="post.user.image_url" alt="" class="avatar" />
-      </router-link>
-    </small>
-    <br />
-    <small>{{ relativeDate(post.created_at) }}</small>
-    <br />
-
-    <p>{{ post.likes.length }} likes</p>
-    <div v-if="$parent.isLoggedIn()">
-      <button v-bind:class="{ 'red-heart': liked }" v-on:click="isLiked()">&hearts;</button>
-    </div>
-    <br />
-
-    <span v-html="post.body"></span>
-    <ul>
-      <li class="text-danger" v-for="error in errors" v-bind:key="error">
-        <p>{{ error }}</p>
-      </li>
-    </ul>
-
-    <div v-if="$parent.isLoggedIn()">
-      <form v-on:submit.prevent="createComment()">
-        <label for="body"></label>
-        <input type="text" id="body" name="body" value="" v-model="body" />
-        <label for="post-id"></label>
-        <input type="hidden" id="post-id" name="post-id" value="" v-model="postId" />
-        <input type="submit" value="Post" />
-      </form>
-    </div>
-    <br />
-    Comments:
-    <div v-for="comment in post.comments" v-bind:key="comment.id">
-      <router-link :to="`/users/${comment.user.id}`">
-        <img :src="comment.user.image_url" alt="" class="avatar" />
-        <small>{{ comment.user.name }}</small>
-      </router-link>
-
-      <div v-if="commentEditToggle == comment.id">
-        <form v-on:submit.prevent="updateComment(comment)">
-          <div class="form-group">
-            <input type="text" class="form-control" v-model="comment.body" />
-            <input type="submit" class="btn btn-primary" value="Update" />
-          </div>
-        </form>
-      </div>
-
-      <div v-else>
-        <p>{{ comment.body }}</p>
-      </div>
-
-      <div v-if="$parent.getUserId() == comment.user.id">
-        <button v-on:click="destroyComment(comment)">Delete</button>
-        <button v-on:click="commentEditToggle = comment.id">Edit</button>
-      </div> -->
-<!-- </div> -->

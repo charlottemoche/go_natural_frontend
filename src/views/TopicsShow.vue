@@ -32,12 +32,14 @@
         </div>
       </div>
     </div>
+    <hr />
   </div>
 </template>
 
 <style scoped>
 img {
   width: 360px;
+  height: 260px;
 }
 </style>
 

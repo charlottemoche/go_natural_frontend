@@ -36,8 +36,12 @@
         </ul>
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item dropdown dropdown-hover megamenu">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-              welcome
+            <a v-if="isLoggedIn()" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              User Menu
+              <span class="caret"></span>
+            </a>
+            <a v-else href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              Welcome
               <span class="caret"></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right pb-2">
@@ -100,10 +104,21 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+</style>
 
 <script>
 export default {
+  data: function() {
+    return {
+      user: {},
+    };
+  },
   methods: {
     isLoggedIn: function() {
       return localStorage.jwt;

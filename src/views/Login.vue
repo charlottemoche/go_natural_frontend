@@ -66,7 +66,7 @@
                   <div class="form-group">
                     <label for="name" class="sr-only form-control-label">name</label>
                     <div class="mx-auto col-sm-10">
-                      <input type="text" class="form-control" placeholder="name" required v-model="name" />
+                      <input type="text" class="form-control" value="" placeholder="name" required v-model="name" />
                     </div>
                   </div>
                   <div class="form-group">
@@ -75,6 +75,7 @@
                       <input
                         type="text"
                         class="form-control"
+                        value=""
                         id="input2EmailForm"
                         placeholder="email"
                         required
@@ -90,6 +91,7 @@
                       <input
                         type="password"
                         class="form-control"
+                        value=""
                         id="input2PasswordForm"
                         placeholder="password"
                         required
@@ -103,8 +105,9 @@
                       <input
                         type="password"
                         class="form-control"
+                        value=""
                         id="input2Password2Form"
-                        placeholder="verify password"
+                        placeholder="confirm password"
                         required
                         v-model="passwordConfirmation"
                       />
@@ -130,6 +133,7 @@
 
 <script>
 import axios from "axios";
+import swal from "sweetalert";
 
 export default {
   data: function() {
@@ -175,6 +179,7 @@ export default {
         .post("/api/users", params)
         .then(response => {
           console.log(response.data);
+          swal("You're all signed up! Please log in");
         })
         .catch(error => {
           this.errors = error.response.data.errors;
