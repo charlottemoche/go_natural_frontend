@@ -3,6 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-7 py-4">
+          <hr class="accent" />
           <!-- main content -->
           <h1 class="display-3 mt-4 mb-2">Hey there, Environmentalist!</h1>
 

@@ -37,7 +37,7 @@
         <ul class="nav navbar-nav ml-auto">
           <li class="nav-item dropdown dropdown-hover megamenu">
             <a v-if="isLoggedIn()" href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-              User Menu
+              Account
               <span class="caret"></span>
             </a>
             <a v-else href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
@@ -55,14 +55,16 @@
                   <li class="text-uppercase text-muted text-wide pt-3 pb-1">Profile</li>
                   <li><a class="link" :href="`/users/${getUserId()}`">View/Edit</a></li>
 
-                  <li class="text-uppercase text-muted text-wide pt-3 pb-1">Create</li>
-                  <li><a class="link" href="/posts/new">New Post</a></li>
+                  <li class="text-uppercase text-muted text-wide pt-3 pb-1">Posts</li>
+                  <li><a class="link" href="/posts/new">Create Post</a></li>
+                  <li><a class="link" :href="`/users/${getUserId()}`">Your Posts</a></li>
 
-                  <li class="text-uppercase text-muted text-wide pt-3 pb-1">User</li>
+                  <li class="text-uppercase text-muted text-wide pt-3 pb-1">Account</li>
                   <li><a class="link" href="/logout">Logout</a></li>
                 </ul>
                 <ul v-else class="col-md-6 col-6 list-unstyled small text-right" role="menu">
                   <!-- Signup</router-link> -->
+                  <li class="text-uppercase text-muted text-wide pt-3 pb-1">User</li>
                   <li><a class="link" v-if="!isLoggedIn()" href="/login">Sign-up Login</a></li>
                 </ul>
               </div>
@@ -78,7 +80,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-10">
-            <p class="display-3 mb-2">We know you want to help save the environment.</p>
+            <p class="display-3 mb-2">We know you want to help save the environment</p>
             <hr />
           </div>
         </div>
@@ -86,7 +88,9 @@
           <div class="col-6 col-md-3">
             <h6 class="text-uppercase">User</h6>
             <ul class="list-unstyled">
-              <li><a :href="`/users/${getUserId()}`">Profile</a></li>
+              <li><a v-if="isLoggedIn()" :href="`/users/${getUserId()}`">Profile</a></li>
+              <li><a v-if="!isLoggedIn()" href="/login">Sign-up | Login</a></li>
+              <li><a v-if="isLoggedIn()" href="/logout">Logout</a></li>
             </ul>
           </div>
           <div class="col-6 col-md-3 column">

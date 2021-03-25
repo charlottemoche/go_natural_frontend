@@ -28,6 +28,7 @@
               </button>
             </router-link>
           </div>
+          <br />
         </div>
       </div>
       <div class="jumbotron jumbotron-fluid">
@@ -59,7 +60,9 @@
           </div>
 
           <hr />
-          <div class="container-body"><span v-html="post.body"></span></div>
+          <div class="container-body">
+            <span class="text" v-html="post.body"></span>
+          </div>
         </div>
         <br />
 

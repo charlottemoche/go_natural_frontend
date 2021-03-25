@@ -9,7 +9,7 @@
       <div class="card card-default">
         <div class="row">
           <div class="col-md-4" v-for="post in topic.posts" v-bind:key="post.id">
-            <div class="card-img-top card-img-top-300 card-zoom">
+            <div class="card-img-top card-img-top-300 card-zoom center-cropped">
               <router-link :to="`/posts/${post.id}`">
                 <span>
                   <img v-bind:src="post.image_url" alt="" />
